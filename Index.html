@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencemaran Lingkungan - Materi SMP Kelas 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        leaf: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            overflow-x: hidden;
+        }
+        .pattern-bg {
+            background-image: radial-gradient(#22c55e 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #f0fdf4;
+        }
+        
+        /* Modal Animation */
+        #modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #modal-content {
+            transition: transform 0.3s ease-in-out;
+            transform: scale(0.95);
+        }
+        #modal:not(.hidden) #modal-content {
+            transform: scale(1);
+        }
+
+        /* --- NEW ANIMATIONS --- */
+        
+        /* Floating Animation for Hero */
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Staggered delays for cards */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        
+        /* --- UI ENHANCEMENTS --- */
+        
+        /* Text Gradient */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #ffffff, #dcfce7);
+        }
+        
+        /* Nav Active Indicator (ScrollSpy) */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link.active {
+            color: #16a34a; /* leaf-600 */
+            font-weight: 800;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background-color: #16a34a;
+            border-radius: 4px;
+            animation: scale-in 0.3s ease-out forwards;
+        }
+        @keyframes scale-in {
+            from { width: 0; opacity: 0; }
+            to { width: 24px; opacity: 1; }
+        }
+        
+        /* Bouncy Button Effect */
+        .hover-bounce:hover {
+            animation: bounce-slight 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes bounce-slight {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-40 top-0 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2 text-leaf-600 font-bold text-xl cursor-pointer hover:scale-105 transition">
+                <i class="fa-solid fa-leaf animate-pulse"></i>
+                <span>EduLingkungan</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
+                <a href="#pengertian" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Pengertian</a>
+                <a href="#jenis" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Jenis</a>
+                <a href="#sebab-dampak" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Sebab & Dampak</a>
+                <a href="#interaktif" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Materi AR/VR</a>
+                <a href="#upaya" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Upaya Menjaga</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-32 pb-24 px-4 bg-gradient-to-br from-leaf-600 via-teal-600 to-teal-800 text-white relative overflow-hidden text-center rounded-b-[3rem] shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+        
+        <!-- Decorative Glow -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-10 right-20 w-40 h-40 bg-teal-300 rounded-full mix-blend-overlay filter blur-3xl opacity-30"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10 float-anim">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-white/20 text-sm font-bold tracking-wider mb-6 border border-white/30 backdrop-blur-sm shadow-sm">
+                <i class="fa-solid fa-graduation-cap mr-1"></i> MATERI IPA SMP KELAS 7
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-2xl text-gradient">
+                PENCEMARAN <br class="hidden md:block"> LINGKUNGAN
+            </h1>
+            <p class="text-lg md:text-xl font-medium text-leaf-50 mb-10 max-w-2xl mx-auto drop-shadow-md">
+                Mari pelajari penyebab, dampak, dan cara menjaga bumi kita agar tetap bersih, sehat, dan asri!
+            </p>
+            <a href="#pengertian" class="inline-flex items-center gap-2 bg-white text-teal-800 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-leaf-50 hover-bounce transition transform group">
+                Mulai Belajar 
+                <i class="fa-solid fa-arrow-down group-hover:translate-y-1 transition duration-300 text-teal-600"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-16 space-y-24">
+
+        <!-- Section 1: Pengertian & Video -->
+        <section id="pengertian" class="grid md:grid-cols-2 gap-12 items-center reveal">
+            <div class="space-y-5">
+                <div class="inline-flex items-center gap-2 text-leaf-700 font-bold bg-leaf-100 px-4 py-1.5 rounded-lg mb-2 shadow-sm">
+                    <i class="fa-solid fa-book-open"></i> Pengantar Materi
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 leading-snug">Apa itu Pencemaran Lingkungan?</h2>
+                <div class="w-20 h-1.5 bg-leaf-500 rounded-full"></div>
+                <p class="text-gray-600 leading-relaxed text-lg">
+                    <strong>Pencemaran lingkungan</strong> adalah masuknya zat, energi, atau bahan berbahaya ke lingkungan sehingga menyebabkan kualitas lingkungan menurun dan mengganggu kehidupan makhluk hidup.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                    Dalam kehidupan sehari-hari, pencemaran lingkungan dapat terjadi akibat aktivitas manusia, seperti membuang sampah sembarangan, asap kendaraan bermotor, limbah industri, pembakaran sampah, hingga penggunaan plastik berlebihan.
+                </p>
+            </div>
+            
+            <!-- Video Pembelajaran -->
+            <div class="bg-white p-5 rounded-3xl shadow-xl border border-gray-100 transform hover:-translate-y-2 transition duration-500 hover:shadow-2xl">
+                <p class="font-bold text-gray-700 mb-4 text-center flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-youtube text-red-500 text-xl"></i> Simak Video Berikut:
+                </p>
+                <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-inner relative bg-gray-100 group">
+                    <iframe src="https://drive.google.com/file/d/1pXxAVSbZbbuhvpXOjerBGCa7iaY3QxXH/preview" 
+                            class="absolute top-0 left-0 w-full h-full border-0" 
+                            allow="autoplay" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Jenis Pencemaran -->
+        <section id="jenis" class="space-y-12 pt-10">
+            <div class="text-center max-w-2xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Jenis-Jenis Pencemaran</h2>
+                <div class="w-24 h-1.5 bg-leaf-500 rounded-full mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg">Berdasarkan tempat terjadinya, pencemaran lingkungan terbagi menjadi tiga jenis utama. Mari kita pelajari satu per satu!</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Pencemaran Air -->
+                <div class="reveal delay-100 bg-white rounded-3xl shadow-lg border-t-8 border-blue-500 overflow-hidden hover:-translate-y-3 hover:shadow-2xl hover:ring-4 hover:ring-blue-500/30 transition duration-300 group">
+                    <div class="bg-gradient-to-b from-blue-50 to-white p-6 flex flex-col items-center text-center border-b border-blue-100 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-blue-500/5 rounded-full blur-2xl transform scale-150 group-hover:bg-blue-500/10 transition duration-500"></div>
+                        <div class="w-16 h-16 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-blue-500/30 mb-4 group-hover:scale-110 group-hover:rotate-3 transition duration-300 relative z-10">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-blue-900 relative z-10">Pencemaran Air</h3>
+                    </div>
+                    <div class="p-6 space-y-5">
+                        <p class="text-sm text-gray-600 bg-blue-50/50 p-3 rounded-lg border-l-4 border-blue-400">
+                            Kondisi ketika air tercemar oleh limbah atau zat berbahaya sehingga kualitas air menurun. Membahayakan manusia, hewan, dan tumbuhan.
+                        </p>
+                        <div>
+                            <strong class="text-blue-800 text-sm block mb-3 flex items-center gap-2"><i class="fa-solid fa-list-ul"></i> Contoh:</strong>
+                            <ul class="text-sm text-gray-600 space-y-2 pl-5 list-disc marker:text-blue-500">
+                                <li>Sampah dibuang ke sungai</li>
+                                <li>Limbah rumah tangga ke saluran air</li>
+                                <li>Limbah pabrik mencemari sungai</li>
+                                <li>Tumpahan minyak di laut</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-xl border border-red-100">
+                            <strong class="text-red-600 text-sm block mb-2 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Dampak:</strong>
+                            <ul class="text-sm text-gray-600 space-y-1 pl-5 list-disc marker:text-red-400">
+                                <li>Air menjadi keruh & berbau</li>
+                                <li>Ikan mati & ekosistem rusak</li>
+                                <li>Krisis air bersih</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pencemaran Udara -->
+                <div class="reveal delay-200 bg-white rounded-3xl shadow-lg border-t-8 border-gray-500 overflow-hidden hover:-translate-y-3 hover:shadow-2xl hover:ring-4 hover:ring-gray-500/30 transition duration-300 group">
+                    <div class="bg-gradient-to-b from-gray-100 to-white p-6 flex flex-col items-center text-center border-b border-gray-200 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gray-500/5 rounded-full blur-2xl transform scale-150 group-hover:bg-gray-500/10 transition duration-500"></div>
+                        <div class="w-16 h-16 bg-gray-600 text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-gray-500/30 mb-4 group-hover:scale-110 group-hover:rotate-3 transition duration-300 relative z-10">
+                            <i class="fa-solid fa-smog"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 relative z-10">Pencemaran Udara</h3>
+                    </div>
+                    <div class="p-6 space-y-5">
+                        <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
+                            Terjadi akibat udara tercampur oleh asap atau zat berbahaya sehingga kualitas udara menurun.
+                        </p>
+                        <div>
+                            <strong class="text-gray-800 text-sm block mb-3 flex items-center gap-2"><i class="fa-solid fa-list-ul"></i> Contoh:</strong>
+                            <ul class="text-sm text-gray-600 space-y-2 pl-5 list-disc marker:text-gray-500">
+                                <li>Asap kendaraan bermotor</li>
+                                <li>Asap pembuangan pabrik</li>
+                                <li>Pembakaran sampah liar</li>
+                                <li>Kebakaran hutan</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-xl border border-red-100">
+                            <strong class="text-red-600 text-sm block mb-2 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Dampak:</strong>
+                            <ul class="text-sm text-gray-600 space-y-1 pl-5 list-disc marker:text-red-400">
+                                <li>Gangguan pernapasan (ISPA)</li>
+                                <li>Memicu pemanasan global</li>
+                                <li>Merusak lapisan ozon</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pencemaran Tanah -->
+                <div class="reveal delay-300 bg-white rounded-3xl shadow-lg border-t-8 border-amber-600 overflow-hidden hover:-translate-y-3 hover:shadow-2xl hover:ring-4 hover:ring-amber-500/30 transition duration-300 group">
+                    <div class="bg-gradient-to-b from-amber-50 to-white p-6 flex flex-col items-center text-center border-b border-amber-100 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-amber-500/5 rounded-full blur-2xl transform scale-150 group-hover:bg-amber-500/10 transition duration-500"></div>
+                        <div class="w-16 h-16 bg-amber-600 text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-amber-600/30 mb-4 group-hover:scale-110 group-hover:-rotate-3 transition duration-300 relative z-10">
+                            <i class="fa-solid fa-mound"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-amber-900 relative z-10">Pencemaran Tanah</h3>
+                    </div>
+                    <div class="p-6 space-y-5">
+                        <p class="text-sm text-gray-600 bg-amber-50/50 p-3 rounded-lg border-l-4 border-amber-400">
+                            Terjadi ketika permukaan atau bagian dalam tanah tercemar oleh sampah organik/anorganik dan bahan kimia.
+                        </p>
+                        <div>
+                            <strong class="text-amber-800 text-sm block mb-3 flex items-center gap-2"><i class="fa-solid fa-list-ul"></i> Contoh:</strong>
+                            <ul class="text-sm text-gray-600 space-y-2 pl-5 list-disc marker:text-amber-600">
+                                <li>Sampah plastik menumpuk</li>
+                                <li>Penggunaan pestisida berlebih</li>
+                                <li>Limbah kimia cair meresap</li>
+                                <li>Pembuangan baterai bekas</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-xl border border-red-100">
+                            <strong class="text-red-600 text-sm block mb-2 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Dampak:</strong>
+                            <ul class="text-sm text-gray-600 space-y-1 pl-5 list-disc marker:text-red-400">
+                                <li>Tanah menjadi tidak subur</li>
+                                <li>Merusak unsur hara</li>
+                                <li>Tumbuhan mati/beracun</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Sebab & Dampak -->
+        <section id="sebab-dampak" class="grid md:grid-cols-2 gap-8 pt-10">
+            <!-- Penyebab -->
+            <div class="reveal delay-100 bg-white p-8 md:p-10 rounded-[2rem] shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-person-digging text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Penyebab Pencemaran</h2>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg">Pencemaran lingkungan sebagian besar disebabkan oleh aktivitas manusia yang kurang peduli terhadap alam.</p>
+                <ul class="space-y-5">
+                    <li class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition">
+                        <div class="bg-red-50 p-2 rounded-lg text-red-500 mt-1"><i class="fa-solid fa-trash"></i></div>
+                        <span class="text-gray-700 font-medium">Membuang sampah sembarangan ke selokan, sungai, atau jalan.</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition">
+                        <div class="bg-red-50 p-2 rounded-lg text-red-500 mt-1"><i class="fa-solid fa-car-side"></i></div>
+                        <span class="text-gray-700 font-medium">Penggunaan kendaraan bermotor berlebihan yang menghasilkan karbon.</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition">
+                        <div class="bg-red-50 p-2 rounded-lg text-red-500 mt-1"><i class="fa-solid fa-industry"></i></div>
+                        <span class="text-gray-700 font-medium">Limbah industri pabrik yang langsung dibuang tanpa diolah.</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-xl transition">
+                        <div class="bg-red-50 p-2 rounded-lg text-red-500 mt-1"><i class="fa-solid fa-bag-shopping"></i></div>
+                        <span class="text-gray-700 font-medium">Penggunaan plastik sekali pakai yang sulit terurai secara alami.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Dampak -->
+            <div class="reveal delay-200 bg-white p-8 md:p-10 rounded-[2rem] shadow-lg border border-gray-100 hover:shadow-xl transition duration-300">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-heart-crack text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Dampak Pencemaran</h2>
+                </div>
+                <p class="text-gray-600 mb-8 text-lg">Pencemaran memberikan efek domino yang sangat buruk bagi keselamatan manusia dan ekosistem bumi.</p>
+                <ul class="space-y-5">
+                    <li class="flex items-start gap-4 p-3 hover:bg-orange-50/50 rounded-xl transition">
+                        <div class="bg-orange-50 p-2 rounded-lg text-orange-500 mt-1"><i class="fa-solid fa-virus-covid"></i></div>
+                        <span class="text-gray-700 font-medium">Menimbulkan berbagai macam penyakit (diare, asma, keracunan).</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-orange-50/50 rounded-xl transition">
+                        <div class="bg-orange-50 p-2 rounded-lg text-orange-500 mt-1"><i class="fa-solid fa-house-flood-water"></i></div>
+                        <span class="text-gray-700 font-medium">Menyebabkan bencana alam seperti banjir karena saluran air tersumbat.</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-orange-50/50 rounded-xl transition">
+                        <div class="bg-orange-50 p-2 rounded-lg text-orange-500 mt-1"><i class="fa-solid fa-paw"></i></div>
+                        <span class="text-gray-700 font-medium">Merusak habitat dan mengancam kepunahan satwa liar maupun laut.</span>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-orange-50/50 rounded-xl transition">
+                        <div class="bg-orange-50 p-2 rounded-lg text-orange-500 mt-1"><i class="fa-solid fa-earth-americas"></i></div>
+                        <span class="text-gray-700 font-medium">Memperparah pemanasan global dan menyebabkan perubahan iklim ekstrem.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: Interaktif (AR & VR) -->
+        <section id="interaktif" class="space-y-10 pt-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+                <span class="inline-block bg-purple-100 text-purple-700 font-bold px-4 py-1.5 rounded-full uppercase tracking-wider text-sm mb-3 border border-purple-200">
+                    <i class="fa-solid fa-gamepad mr-1"></i> Zona Interaktif
+                </span>
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-800 mt-2">Eksplorasi Teknologi</h2>
+                <div class="w-24 h-1.5 bg-purple-500 rounded-full mx-auto mt-5 mb-4"></div>
+                <p class="text-gray-600 mt-4 text-lg">Belajar jadi lebih seru! Gunakan teknologi Augmented Reality (AR) dan Virtual Reality (VR) untuk mensimulasikan materi secara nyata di depan matamu.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Sampah & AR -->
+                <div class="reveal delay-100 bg-gradient-to-br from-indigo-900 via-purple-900 to-fuchsia-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group hover:shadow-purple-500/30 transition duration-500">
+                    <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-purple-500 rounded-full mix-blend-screen filter blur-[80px] opacity-50 group-hover:opacity-80 transition duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="inline-flex items-center gap-2 bg-white/20 px-5 py-2 rounded-full text-sm font-semibold mb-8 backdrop-blur-md border border-white/20">
+                            <i class="fa-solid fa-cube animate-bounce"></i> Augmented Reality
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">Hubungan Sampah & Pencemaran</h3>
+                        <p class="text-purple-100 mb-8 text-base leading-relaxed opacity-90">
+                            Sampah yang tidak dikelola dengan baik dapat menyebabkan berbagai jenis pencemaran lingkungan. Ketahui jenis-jenis sampah:
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mb-10">
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10 hover:bg-white/20 transition transform hover:-translate-y-1">
+                                <i class="fa-solid fa-apple-whole text-green-400 text-3xl mb-2 block drop-shadow-md"></i>
+                                <span class="text-sm font-semibold tracking-wide">Organik</span>
+                            </div>
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10 hover:bg-white/20 transition transform hover:-translate-y-1">
+                                <i class="fa-solid fa-bottle-water text-blue-400 text-3xl mb-2 block drop-shadow-md"></i>
+                                <span class="text-sm font-semibold tracking-wide">Anorganik</span>
+                            </div>
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10 hover:bg-white/20 transition transform hover:-translate-y-1">
+                                <i class="fa-solid fa-bag-shopping text-gray-400 text-3xl mb-2 block drop-shadow-md"></i>
+                                <span class="text-sm font-semibold tracking-wide">Plastik</span>
+                            </div>
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10 hover:bg-white/20 transition transform hover:-translate-y-1">
+                                <i class="fa-solid fa-plug text-yellow-400 text-3xl mb-2 block drop-shadow-md"></i>
+                                <span class="text-sm font-semibold tracking-wide">Elektronik</span>
+                            </div>
+                        </div>
+                        
+                        <!-- AR App Download Link -->
+                        <a href="#" target="_blank" class="w-full bg-white text-purple-900 font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-purple-50 transition shadow-[0_10px_25px_rgba(255,255,255,0.2)] hover-bounce group-hover:-translate-y-1">
+                            <i class="fa-solid fa-download text-xl"></i> Download Aplikasi AR
+                        </a>
+                    </div>
+                </div>
+
+                <!-- VR Pencemaran -->
+                <div class="reveal delay-200 bg-gradient-to-br from-slate-900 via-gray-900 to-black rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group hover:shadow-blue-500/30 transition duration-500">
+                    <div class="absolute bottom-[-50px] left-[-50px] w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] opacity-30 group-hover:opacity-60 transition duration-700"></div>
+                    <div class="relative z-10 h-full flex flex-col">
+                        <div class="inline-flex items-center gap-2 bg-white/10 px-5 py-2 rounded-full text-sm font-semibold mb-8 backdrop-blur-md border border-white/10 self-start">
+                            <i class="fa-solid fa-vr-cardboard"></i> Virtual Reality
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4">VR Pencemaran Lingkungan</h3>
+                        <p class="text-slate-300 mb-auto text-base leading-relaxed opacity-90">
+                            Untuk memahami bentuk pencemaran lingkungan secara lebih nyata, kamu dapat mencoba pengalaman belajar menggunakan Virtual Reality (VR). Jelajahi simulasi 360 derajat kondisi sungai tercemar hingga udara di kawasan industri!
+                        </p>
+                        
+                        <!-- VR Illustration/Icon -->
+                        <div class="my-10 flex justify-center relative">
+                            <div class="w-40 h-40 rounded-full border-4 border-slate-700/50 flex items-center justify-center relative bg-slate-800/30 backdrop-blur-sm">
+                                <i class="fa-solid fa-vr-cardboard text-6xl text-blue-400 transform group-hover:scale-110 transition duration-300 drop-shadow-[0_0_15px_rgba(96,165,250,0.5)]"></i>
+                                <!-- Orbit lines to look techy -->
+                                <div class="absolute inset-0 border-2 border-blue-500/30 border-dashed rounded-full animate-[spin_8s_linear_infinite]" style="width: 130%; height: 130%; left: -15%; top: -15%;"></div>
+                                <div class="absolute inset-0 border border-purple-500/20 rounded-full animate-[spin_5s_linear_infinite_reverse]" style="width: 160%; height: 160%; left: -30%; top: -30%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- VR App Download Link -->
+                        <a href="#" target="_blank" class="w-full bg-blue-600 text-white font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-blue-500 transition shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover-bounce group-hover:-translate-y-1">
+                            <i class="fa-solid fa-download text-xl"></i> Download Aplikasi VR
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Upaya Menjaga Lingkungan -->
+        <section id="upaya" class="pattern-bg rounded-[3rem] p-8 md:p-14 shadow-2xl border border-leaf-200 reveal pt-16 mt-10 relative overflow-hidden">
+            <!-- Decorative circle inside pattern -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-leaf-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+            <div class="text-center max-w-2xl mx-auto mb-14 relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-leaf-800 mb-4">Upaya Menjaga Lingkungan</h2>
+                <div class="w-24 h-1.5 bg-leaf-500 rounded-full mx-auto mb-6"></div>
+                <p class="text-leaf-800 text-lg opacity-90 font-medium">Kita dapat menyelamatkan bumi dengan melakukan tindakan sederhana setiap harinya. Yuk mulai dari diri kita sendiri!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 relative z-10">
+                <!-- Item 1 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-trash-can-arrow-up text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Buang Sampah</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Buanglah sampah pada tempatnya sesuai jenis.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Kurangi Plastik</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Ganti kantong plastik dengan tas belanja kain.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-recycle text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Daur Ulang</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Kreasikan barang bekas menjadi barang berguna.</p>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-tree text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Tanam Pohon</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Lakukan penghijauan di lingkungan sekitar rumah.</p>
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-lightbulb text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Hemat Energi</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Matikan air dan listrik jika tidak digunakan.</p>
+                    </div>
+                </div>
+                <!-- Item 6 -->
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm flex items-center gap-5 border border-leaf-100 hover:shadow-lg hover:-translate-y-1 hover:border-leaf-300 transition duration-300 group">
+                    <div class="bg-leaf-100 text-leaf-600 p-4 rounded-xl shrink-0 group-hover:bg-leaf-500 group-hover:text-white transition duration-300">
+                        <i class="fa-solid fa-dumpster-fire text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Stop Bakar Sampah</h4>
+                        <p class="text-sm text-gray-600 mt-1 leading-snug">Jangan bakar sampah karena memicu polusi udara.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-10 text-center mt-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center">
+            <div class="flex items-center gap-2 text-white font-bold text-3xl mb-4 opacity-90 hover:opacity-100 transition cursor-pointer">
+                <i class="fa-solid fa-leaf text-leaf-500"></i> EduLingkungan
+            </div>
+            <p class="mb-2 text-gray-300">Media Pembelajaran Interaktif Siswa SMP Kelas 7</p>
+            <div class="w-16 h-px bg-gray-700 my-4"></div>
+            <p class="text-sm text-gray-500">&copy; 2026 Materi Ilmu Pengetahuan Alam - Pencemaran Lingkungan</p>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer Script for Scroll Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to handle scroll animations
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100; // Trigger point
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+
+            // Listen for scroll events
+            window.addEventListener("scroll", reveal);
+
+            // Trigger once on load
+            reveal();
+            
+            // ScrollSpy functionality for Navbar
+            const sections = document.querySelectorAll("section[id]");
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // Trigger offset a bit before the section hits the top
+                    if (scrollY >= (sectionTop - 250)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Add shadow to navbar on scroll
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    nav.classList.add('shadow-md');
+                    nav.classList.remove('shadow-sm');
+                } else {
+                    nav.classList.remove('shadow-md');
+                    nav.classList.add('shadow-sm');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
