@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -28,6 +29,7 @@
             }
         }
     </script>
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -40,20 +42,6 @@
             background-size: 20px 20px;
             background-color: #f0fdf4;
         }
-        
-        /* Modal Animation */
-        #modal {
-            transition: opacity 0.3s ease-in-out;
-        }
-        #modal-content {
-            transition: transform 0.3s ease-in-out;
-            transform: scale(0.95);
-        }
-        #modal:not(.hidden) #modal-content {
-            transform: scale(1);
-        }
-
-        /* --- NEW ANIMATIONS --- */
         
         /* Floating Animation for Hero */
         .float-anim {
@@ -80,8 +68,6 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
-        
-        /* --- UI ENHANCEMENTS --- */
         
         /* Text Gradient */
         .text-gradient {
@@ -126,6 +112,7 @@
         }
     </style>
 </head>
+
 <body class="antialiased">
 
     <!-- Navbar -->
@@ -135,12 +122,30 @@
                 <i class="fa-solid fa-leaf animate-pulse"></i>
                 <span>EduLingkungan</span>
             </div>
+            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
                 <a href="#pengertian" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Pengertian</a>
                 <a href="#jenis" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Jenis</a>
                 <a href="#sebab-dampak" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Sebab & Dampak</a>
                 <a href="#interaktif" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Materi AR/VR</a>
                 <a href="#upaya" class="nav-link hover:text-leaf-600 hover:-translate-y-0.5 transition transform">Upaya Menjaga</a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-btn" class="md:hidden text-2xl text-leaf-700 focus:outline-none transition transform hover:scale-110">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full">
+            <div class="flex flex-col px-6 py-4 space-y-4 text-base font-semibold text-gray-600">
+                <a href="#pengertian" class="mobile-nav-link hover:text-leaf-600 transition block border-b border-gray-50 pb-2">Pengertian</a>
+                <a href="#jenis" class="mobile-nav-link hover:text-leaf-600 transition block border-b border-gray-50 pb-2">Jenis</a>
+                <a href="#sebab-dampak" class="mobile-nav-link hover:text-leaf-600 transition block border-b border-gray-50 pb-2">Sebab & Dampak</a>
+                <a href="#interaktif" class="mobile-nav-link hover:text-leaf-600 transition block border-b border-gray-50 pb-2">Materi AR/VR</a>
+                <a href="#upaya" class="mobile-nav-link hover:text-leaf-600 transition block">Upaya Menjaga</a>
             </div>
         </div>
     </nav>
@@ -185,6 +190,9 @@
                 </p>
                 <p class="text-gray-600 leading-relaxed">
                     Dalam kehidupan sehari-hari, pencemaran lingkungan dapat terjadi akibat aktivitas manusia, seperti membuang sampah sembarangan, asap kendaraan bermotor, limbah industri, pembakaran sampah, hingga penggunaan plastik berlebihan.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                    Melalui materi ini, siswa akan mempelajari berbagai jenis pencemaran lingkungan, penyebab, dampak, serta cara menjaga lingkungan agar tetap bersih dan sehat.
                 </p>
             </div>
             
@@ -417,7 +425,7 @@
                         </div>
                         
                         <!-- AR App Download Link -->
-                        <a href="#" target="_blank" class="w-full bg-white text-purple-900 font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-purple-50 transition shadow-[0_10px_25px_rgba(255,255,255,0.2)] hover-bounce group-hover:-translate-y-1">
+                        <a href="https://drive.google.com/drive/folders/1eBjg8jtB3LKqcSRXBDUtzCFXnuc72pEU?usp=sharing" target="_blank" class="w-full bg-white text-purple-900 font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-purple-50 transition shadow-[0_10px_25px_rgba(255,255,255,0.2)] hover-bounce group-hover:-translate-y-1">
                             <i class="fa-solid fa-download text-xl"></i> Download Aplikasi AR
                         </a>
                     </div>
@@ -446,7 +454,7 @@
                         </div>
 
                         <!-- VR App Download Link -->
-                        <a href="#" target="_blank" class="w-full bg-blue-600 text-white font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-blue-500 transition shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover-bounce group-hover:-translate-y-1">
+                        <a href="https://drive.google.com/drive/folders/1C4o9tyDC1zO0IxPWamWKrgducGRGiL9f?usp=sharing" target="_blank" class="w-full bg-blue-600 text-white font-extrabold text-lg py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-blue-500 transition shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover-bounce group-hover:-translate-y-1">
                             <i class="fa-solid fa-download text-xl"></i> Download Aplikasi VR
                         </a>
                     </div>
@@ -540,14 +548,14 @@
             </div>
             <p class="mb-2 text-gray-300">Media Pembelajaran Interaktif Siswa SMP Kelas 7</p>
             <div class="w-16 h-px bg-gray-700 my-4"></div>
-            <p class="text-sm text-gray-500">&copy; 2026 Materi Ilmu Pengetahuan Alam - Pencemaran Lingkungan</p>
+            <p class="text-sm text-gray-500">&copy; 2026 Materi Ilmu Pengetahuan Sosial - Pencemaran Lingkungan</p>
         </div>
     </footer>
 
-    <!-- Intersection Observer Script for Scroll Animations -->
+    <!-- Interactive Scripts -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Function to handle scroll animations
+            // Function to handle scroll animations (Reveal)
             function reveal() {
                 var reveals = document.querySelectorAll(".reveal");
 
@@ -601,6 +609,34 @@
                     nav.classList.remove('shadow-md');
                     nav.classList.add('shadow-sm');
                 }
+            });
+
+            // Mobile Menu Toggle Logic
+            const mobileBtn = document.getElementById('mobile-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = mobileBtn.querySelector('i');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                
+                // Toggle icon between bars (hamburger) and xmark (close)
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileIcon.classList.remove('fa-xmark');
+                    mobileIcon.classList.add('fa-bars');
+                } else {
+                    mobileIcon.classList.remove('fa-bars');
+                    mobileIcon.classList.add('fa-xmark');
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileIcon.classList.remove('fa-xmark');
+                    mobileIcon.classList.add('fa-bars');
+                });
             });
         });
     </script>
